@@ -6,3 +6,22 @@
 
 Functor middleware for redux.
 
+### Usage
+
+```haskell
+functor : Store -> Function -> Action -> a
+```
+
+Redux middleware to dispatch actions that are functors.  This includes the built-in javascript [`Array`](http://devdocs.io/javascript/global_objects/array) type, along with many other [ADT's](https://github.com/evilsoft/crocks#crocks).
+
+If any action has a property called `map` that is a function, the action is assumed to be a functor.
+
+```js
+const { applyMiddleware, combineReducers, createStore } = require('redux')
+const functor = require('redux-functor')
+
+const reducers = require('../ducks')
+
+const store = createStore(combineReducers(reducers), applyMiddleware(functor))
+```
+
